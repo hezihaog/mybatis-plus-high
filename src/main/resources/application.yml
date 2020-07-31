@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: crud
+  #配置数据库
+  datasource:
+    #原本MySQL的配置
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    #url: jdbc:mysql://localhost:3306/mp_high?useSSL=false&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+
+    #性能分析插件的配置，驱动替换为p6的，url要在jdbc后面加p6spy
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://localhost:3306/mp_high?useSSL=false&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+
+    username: root
+    password: hezihao123
+
+#配置Log打印
+logging:
+  level:
+    root: warn
+    #配置要输出日志的类的包路径
+    com.mp.dao: trace
+  pattern:
+    console: '%p%m%n'
+mybatis-plus:
+  global-config:
+    db-config:
+      #逻辑删除，未删除的字段值，0
+      logic-not-delete-value: 0
+      #逻辑删除，已删除的字段值，1
+      logic-delete-value: 1
+    #3.1.1版本之前，配置多租户过滤，需要将该属性设置为true
+    sql-parser-cache: true
